@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.geekymv.pojo">
+	<class name="Article" table="t_article">
+		<id name="id" column="id" type="integer">
+			<generator class="increment" />
+		</id>
+		<property name="title" column="title" length="255" type="string" />
+		
+		<!-- 多篇文章对应一个用户 -->
+		<many-to-one lazy="proxy" name="author" column="user_id"  class="com.geekymv.pojo.User" ></many-to-one>
+		
+		<!-- table：中间表名称 -->
+		<set name="tags" inverse="false" table="article_tag">
+			<!-- 通过key属性告诉Hibernate在中间表里面查询article_id值对应的article记录 -->
+			<key column="article_id"></key>
+			<!-- 通过column属性告诉Hibernate在中间表里面查询tag_id值对应的tag记录 -->
+			<many-to-many class="com.geekymv.pojo.Tag" column="tag_id"></many-to-many>
+		</set>
+		
+	</class>
+</hibernate-mapping>
+
+
+
+
+
+
+
+

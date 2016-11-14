@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.geekymv.pojo">
+	<class name="Tag" table="t_tag" >
+		<id name="id" column="id" type="integer">
+			<generator class="increment" />
+		</id>
+		<property name="name" column="name" length="255" type="string" />
+		
+		<!-- 
+		多个标签对应一个用户
+			name: 映射类属性的名字
+			column: 关联的字段 
+			class: 关联类的名字
+			lazy:proxy懒加载
+		 -->
+		<many-to-one lazy="proxy" name="user" column="user_id" class="com.geekymv.pojo.User" ></many-to-one>
+		
+		<!-- inverse="true"放弃维护关联关系，让对方来维护 -->
+		<set name="articles" inverse="true" lazy="true" table="article_tag">
+			<key column="tag_id"></key>
+			<many-to-many class="com.geekymv.pojo.Article" column="article_id"></many-to-many>
+		</set>
+		
+	</class>
+</hibernate-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
