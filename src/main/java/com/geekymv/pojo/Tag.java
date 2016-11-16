@@ -2,6 +2,8 @@ package com.geekymv.pojo;
 
 import java.util.Set;
 
+import com.geekymv.base.BaseDomain;
+
 /**
  * 标签
  * 
@@ -11,7 +13,8 @@ import java.util.Set;
  * @history:
  * @version: v1.0
  */
-public class Tag {
+public class Tag extends BaseDomain {
+	private static final long serialVersionUID = -9221667452290267490L;
 	/**
 	 * 标签主键
 	 */

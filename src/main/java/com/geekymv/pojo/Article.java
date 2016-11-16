@@ -2,6 +2,9 @@ package com.geekymv.pojo;
 
 import java.util.Date;
 import java.util.Set;
+
+import com.geekymv.base.BaseDomain;
+import com.geekymv.common.enums.Status.ArticleStatus;
 /**
  * 文章
  * @desc: hibernate-demo
@@ -10,7 +13,9 @@ import java.util.Set;
  * @history:
  * @version: v1.0
  */
-public class Article {
+public class Article extends BaseDomain {
+	private static final long serialVersionUID = -4517822068785233906L;
+
 	/**
 	 * 主键
 	 */
@@ -43,7 +48,8 @@ public class Article {
 	/**
 	 * 状态
 	 */
-	private int state;
+//	private Integer state;
+	private ArticleStatus articleStatus;
 	
 	/**
 	 * 一篇文章有多个标签，一个标签对应多篇文章
@@ -92,24 +98,25 @@ public class Article {
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
-	public int getState() {
-		return state;
+//	public Integer getState() {
+//		return state;
+//	}
+//	public void setState(Integer state) {
+//		this.state = state;
+//	}
+	
+	public ArticleStatus getArticleStatus() {
+		return articleStatus;
 	}
-	public void setState(int state) {
-		this.state = state;
+	public void setArticleStatus(ArticleStatus articleStatus) {
+		this.articleStatus = articleStatus;
 	}
+	
 	public Set<Tag> getTags() {
 		return tags;
 	}
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
-	}
-	@Override
-	public String toString() {
-		return "Article [id=" + id + ", author=" + author + ", title=" + title
-				+ ", content=" + content + ", createTime=" + createTime
-				+ ", publicTime=" + publicTime + ", modifyTime=" + modifyTime
-				+ ", state=" + state + ", tags=" + tags + "]";
 	}
 	
 }

@@ -7,12 +7,22 @@
 			<generator class="increment" />
 		</id>
 		<property name="title" column="title" length="255" type="string" />
+		<property name="createTime" column="createTime" type="timestamp" ></property>
+		
+		<!-- Hibernate中映射枚举类型 http://www.cnblogs.com/chanedi/articles/2113695.html -->
+		<property name="articleStatus" column="articleStatus">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.geekymv.common.enums.Status$ArticleStatus</param>
+				<param name="type">4</param>
+			</type>
+		</property>
 		
 		<!-- 多篇文章对应一个用户 -->
-		<many-to-one lazy="proxy" name="author" column="user_id"  class="com.geekymv.pojo.User" ></many-to-one>
+		<many-to-one lazy="proxy" name="author" column="user_id"  
+					 not-null="true" class="com.geekymv.pojo.User" ></many-to-one>
 		
 		<!-- table：中间表名称 -->
-		<set name="tags" inverse="false" table="article_tag">
+		<set name="tags" inverse="false" table="t_article_tag">
 			<!-- 通过key属性告诉Hibernate在中间表里面查询article_id值对应的article记录 -->
 			<key column="article_id"></key>
 			<!-- 通过column属性告诉Hibernate在中间表里面查询tag_id值对应的tag记录 -->

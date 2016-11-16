@@ -1,5 +1,6 @@
 package com.geekymv.hibernate_demo;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.geekymv.common.enums.Status.ArticleStatus;
 import com.geekymv.pojo.Article;
 import com.geekymv.pojo.Tag;
 import com.geekymv.pojo.User;
@@ -51,6 +53,8 @@ public class TestArticle {
 			article.setTitle("我是新手...");
 			article.setTags(sets);
 			article.setAuthor(user);
+			article.setArticleStatus(ArticleStatus.ACTIVE);
+			article.setCreateTime(new Date());
 			
 			session.save(article);
 			
@@ -68,7 +72,7 @@ public class TestArticle {
 	
 	@Test
 	public void testGetArticle() {
-		Article article = (Article) session.get(Article.class, 1);
+		Article article = (Article) session.get(Article.class, 2);
 		System.out.println(article);
 	}
 	
