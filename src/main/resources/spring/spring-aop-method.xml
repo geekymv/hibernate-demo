@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	 
+	<bean id="hello" class="com.geekymv.aop.xml.HelloImpl"></bean>	
+	
+	<!-- 通过名字来定位业务方法 -->
+	<bean id="beforeAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<!-- 拦截器对象 -->
+		<property name="advice">
+			<bean class="com.geekymv.aop2.BeforeAOPInterceptor"></bean>
+		</property>
+		<!-- 拦截的方法 -->
+		<property name="mappedNames">
+			<list>
+				<value>testA</value>
+				<value>testB</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="afterAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="advice">
+			<bean class="com.geekymv.aop2.AfterAOPInterceptor"></bean>
+		</property>
+		<property name="mappedNames">
+			<list>
+				<value>testA</value>
+				<value>testB</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">	
+		<property name="advice">
+			<bean class="com.geekymv.aop2.MyAOPInterceptor"></bean>
+		</property>
+		<property name="mappedNames">
+			<list>
+				<value>testA</value>
+				<value>testB</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="aopService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 拦截器 -->
+		<property name="interceptorNames">
+			<list>
+				<!-- 
+				<value>beforeAdvisor</value>
+				<value>afterAdvisor</value>
+				 -->
+				<value>myAdvisor</value>
+			</list>
+		</property>
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.geekymv.aop.xml.Hello</value>
+			</list>
+		</property>
+		<property name="targetName" value="hello"></property>
+		<!-- 要拦截的目标类 -->
+		<!-- 
+		<property name="target">
+			<bean class="com.geekymv.aop.xml.HelloImpl"></bean>
+		</property>
+		 -->
+	</bean>
+
+</beans>
